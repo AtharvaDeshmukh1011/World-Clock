@@ -1,0 +1,467 @@
+:root {
+  color-scheme: light;
+  --bg: #f2f4f8;
+  --surface: #ffffff;
+  --surface-alt: #eef1f7;
+  --border: #dde2ec;
+  --text: #1b1f27;
+  --text-muted: #5b6472;
+  --accent: #3459e6;
+  --accent-contrast: #ffffff;
+  --danger: #e64545;
+  --success: #1f9d55;
+  --shadow: 0 1px 3px rgba(20, 25, 40, 0.08), 0 8px 24px rgba(20, 25, 40, 0.06);
+  --font: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #10131a;
+  --surface: #181c26;
+  --surface-alt: #1f2430;
+  --border: #2b303c;
+  --text: #eef1f7;
+  --text-muted: #9aa3b2;
+  --accent: #6d8dff;
+  --accent-contrast: #0c0f16;
+  --danger: #ff6b6b;
+  --success: #3ddc84;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.app-header__subtitle {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.controls-bar__button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.controls-bar__segmented {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.controls-bar__segmented button {
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.controls-bar__segmented button.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.app__main {
+  display: grid;
+  gap: 32px;
+}
+
+section h2 {
+  margin: 0 0 14px;
+  font-size: 1.3rem;
+}
+
+.world-clock__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.world-clock__empty,
+.alarm-list__empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.world-clock__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.clock-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.clock-card__title {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.clock-card__meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.clock-card__remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.clock-card__remove:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* Analog clock */
+.analog-clock__face {
+  fill: var(--surface-alt);
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+
+.analog-clock__tick {
+  stroke: var(--text-muted);
+  stroke-width: 0.6;
+}
+
+.analog-clock__tick--hour {
+  stroke: var(--text);
+  stroke-width: 1.1;
+}
+
+.analog-clock__hand {
+  stroke-linecap: round;
+}
+
+.analog-clock__hand--hour {
+  stroke: var(--text);
+  stroke-width: 3;
+}
+
+.analog-clock__hand--minute {
+  stroke: var(--text);
+  stroke-width: 2;
+}
+
+.analog-clock__hand--second {
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+.analog-clock__pivot {
+  fill: var(--accent);
+}
+
+/* Digital clock */
+.digital-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.digital-clock__time {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.digital-clock__date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Timezone selector */
+.tz-selector {
+  position: relative;
+  min-width: 220px;
+}
+
+.tz-selector__input {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.tz-selector__results {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  max-height: 260px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+}
+
+.tz-selector__results--empty {
+  padding: 10px 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.tz-selector__results button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tz-selector__results button:hover {
+  background: var(--surface-alt);
+}
+
+.tz-selector__zone-id {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Alarms */
+.alarm-manager {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.alarm-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.alarm-form input,
+.alarm-form select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+}
+
+.alarm-form button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  cursor: pointer;
+}
+
+.alarm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alarm-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-alt);
+}
+
+.alarm-item--firing {
+  border-color: var(--danger);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.alarm-item__info {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.alarm-item__time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.alarm-item__zone {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.alarm-item__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.alarm-item__actions button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.alarm-item__dismiss {
+  border-color: var(--danger) !important;
+  color: var(--danger);
+}
+
+.alarm-item__toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.alarm-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.alarm-banner__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--danger);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.alarm-banner__item button {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(230, 69, 69, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(230, 69, 69, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alarm-item--firing,
+  .alarm-banner__item {
+    animation: none;
+  }
+  .analog-clock__hand {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .world-clock__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
