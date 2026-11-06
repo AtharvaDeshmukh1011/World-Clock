@@ -32,4 +32,4 @@ npm run preview  # preview the production build locally
 - React 18 + Vite
 - Plain CSS (custom properties for theming)
 - `Intl.DateTimeFormat` / `Intl.supportedValuesOf` for all timezone math — no external date library
-- Web Audio API for alarm tones — no external audio assets
+- Web Audio API for alarm tones — with zero external audio sets
